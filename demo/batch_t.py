@@ -6,6 +6,9 @@
 @Date    ：2023/4/3 23:05 
 @Description     ：
 '''
-import pofinance
+from pofinance import MakeT
 
-print(pofinance.t0(11.2, 11.4, 100))
+# pip install pofinance
+
+t = MakeT()
+print(t.single_t(27.11, 26.9, 300))
