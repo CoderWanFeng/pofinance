@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 '''
-@Author  ：B站/抖音/微博/小红书/公众号，都叫：程序员晚枫
-@WeChat     ：CoderWanFeng
-@Blog      ：www.python-office.com
+@作者 ：B站/抖音/微博/小红书/公众号，都叫：程序员晚枫
+@微信 ：CoderWanFeng : https://mp.weixin.qq.com/s/B1V6KeXc7IOEB8DgXLWv3g
+@个人网站 ：www.python-office.com
 @Date    ：2023/6/2 22:52
 @Description     ：
 '''
@@ -11,7 +11,7 @@ from decimal import Decimal
 
 
 def t0(buy_price: float, sale_price: float, num: int, w_rate: float = 2.5 / 10000, min_rate: int = 5,
-       stamp_tax=1 / 1000) -> float:
+       stamp_tax=0.5 / 1000) -> float:
     """
     计算做T的收益
     Args:
@@ -20,7 +20,7 @@ def t0(buy_price: float, sale_price: float, num: int, w_rate: float = 2.5 / 1000
         num: 单笔数量
         w_rate: 手续费，默认万2.5
         min_rate: 单笔最低手续费，默认5元
-        stamp_tax: 印花税，默认千1
+        stamp_tax: 印花税，默认千0.5
 
     Returns: 做T后的收益金额
 
@@ -61,8 +61,8 @@ class MakeT():
             买入价格，买入成本
         """
         buy_money = Decimal(str(buy_price)) * num  # 买入的价格
-        base_rate = self.min_rate if buy_money * self.w_rate <= self.min_rate else buy_money * self.w_rate
-        return buy_money, base_rate
+        buy_rate = self.min_rate if buy_money * self.w_rate <= self.min_rate else buy_money * self.w_rate
+        return buy_money, buy_rate
 
     def cal_sale_cost(self, sale_price, num):
         """
@@ -88,9 +88,9 @@ class MakeT():
             num: 单笔数量
         Returns: 做T后的收益金额
         """
-        buy_money, base_rate = self.cal_buy_cost(buy_price, num)
+        buy_money, buy_rate = self.cal_buy_cost(buy_price, num)
         sale_money, sale_rate = self.cal_sale_cost(sale_price, num)
-        stock_returns = sale_money - buy_money - base_rate - sale_rate
+        stock_returns = sale_money - buy_money - buy_rate - sale_rate
         return stock_returns
 
     def batch_t(self, sale_price_num: list):
@@ -103,7 +103,9 @@ class MakeT():
             批量卖出的全部数量，一次全部买入的最低盈利价格
         """
         base_price = 0
-        while True:
+        sum_num = 0  # 总股数
+        compare_goog_list = []
+        while base_price < max([item[1] for item in sale_price_num]):
             sum_num = 0  # 股票总数
             sale_good_list = []  # 每次交易的收益
             for item in sale_price_num:
@@ -111,15 +113,10 @@ class MakeT():
                 sum_num += sale_num
                 sale_price = item[1]
                 sale_good_list.append(self.single_t(base_price, sale_price, sale_num))
-            if sum(sale_good_list) > 0:
-                if sum(sale_good_list) - self.cal_buy_cost(base_price, sum_num)[1] <= 0:
-                    base_price = base_price - 0.01
-                    break
-                # elif
-                else:
-                    base_price = base_price + 0.01
-
-        return (sum_num, base_price)
+            if sum(sale_good_list) > 0 and sum(sale_good_list) - self.cal_buy_cost(base_price, sum_num)[1] > 0:
+                compare_goog_list.append((base_price, sum(sale_good_list) - self.cal_buy_cost(base_price, sum_num)[1]))
+            base_price = base_price + 0.01
+        return f"一次性买出的总股数：{sum_num}，最高价格为：{min(compare_goog_list, key=lambda t: t[1])[0]}，最小收益为： {min(compare_goog_list, key=lambda t: t[1])[1]}"
 
 
 if __name__ == '__main__':
@@ -130,6 +127,9 @@ if __name__ == '__main__':
     # print(t0(27.11, 26.9, 300))
     # print(t0(27.11, 27.33, 500))
 
-    t = MakeT()
-    print(t.single_t(27.11, 26.9, 300))
-    print(t.batch_t(s_p))
+    # t = MakeT()
+    # print(t.single_t(27.11, 26.9, 300))
+    # print(t.batch_t(s_p))
+    a = [('a', 2), ('ee', 3), ('mm', 4), ('x', 1)]
+    a = [(0, 22042), (0.01, 22022), (0.02, 3), ]
+    print(min(a, key=lambda t: t[1]))

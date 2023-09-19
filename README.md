@@ -77,7 +77,7 @@ pofinance 欢迎任何人来添砖加瓦，贡献代码，建议提交的pr（pu
 
 提交问题反馈时，请务必填写和python-office代码本身有关的问题，不进行有关python学习，甚至是个人练习的知识答疑和讨论。
 
-- [Github issue](https://github.com/CoderWanFeng/wftools/issues)
+- [Github issue](https://github.com/CoderWanFeng/pofinance/issues)
 
 -------------------------------------------------------------------------------
 
@@ -85,8 +85,13 @@ pofinance 欢迎任何人来添砖加瓦，贡献代码，建议提交的pr（pu
 ## 📌联系作者
 
 
-![CoderWanFeng](https://python-office-1300615378.cos.ap-chongqing.myqcloud.com/python-office-qr.jpg)
+<p align="center" id='开源交流群-banner'>
+<a target="_blank" href='https://python-office-1300615378.cos.ap-chongqing.myqcloud.com/python-office.jpg'>
+<img src="https://python-office-1300615378.cos.ap-chongqing.myqcloud.com/python-office-qr.jpg" width="100%"/>
+</a> 
+</p>
 
 
 ## 📕参考资料
 - https://pypi.org/project/pyfinance/
+- https://www.akshare.xyz/tutorial.html
