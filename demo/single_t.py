@@ -6,11 +6,11 @@
 @Date    ：2023/4/3 23:05 
 @Description     ：
 '''
-# from pofinance import MakeT
+from pofinance import MakeT
 import pofinance as pf
 # pip install pofinance
 
-# t = MakeT()
-# print(t.single_t(27.11, 26.9, 300))
+t = MakeT()
+print(t.single_t(27.11, 26.9, 300))
 
 print(pf.t0(12.2, 12.3, 1000))

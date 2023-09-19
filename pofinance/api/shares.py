@@ -38,13 +38,13 @@ def t0(buy_price: float, sale_price: float, num: int, w_rate: float = 2.5 / 1000
 
 
 class MakeT():
-    def __init__(self, w_rate: float = 2.5 / 10000, min_rate: int = 5, stamp_tax=1 / 1000, RATE_LINE=10000 * 2):
+    def __init__(self, w_rate: float = 2.5 / 10000, min_rate: int = 5, stamp_tax=0.5 / 1000, RATE_LINE=10000 * 2):
         """
         加载手续费
         Args:
             w_rate: 手续费，默认万2.5
             min_rate: 单笔最低手续费，默认5元
-            stamp_tax: 印花税，默认千1
+            stamp_tax: 印花税，默认千0.5
         """
         self.w_rate = Decimal(str(w_rate))
         self.min_rate = Decimal(str(min_rate))
