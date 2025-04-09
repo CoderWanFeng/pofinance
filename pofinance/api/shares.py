@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 '''
 @作者 ：B站/抖音/微博/小红书/公众号，都叫：程序员晚枫
-@微信 ：CoderWanFeng : https://mp.weixin.qq.com/s/Nt8E8vC-ZsoN1McTOYbY2g
+@读者群     ：http://www.python4office.cn/wechat-group/
 @个人网站 ：www.python-office.com
 @Date    ：2023/6/2 22:52
 @Description     ：
@@ -10,7 +10,21 @@
 from decimal import Decimal
 
 
-def t0(buy_price: float, sale_price: float, num: int, w_rate: float = 2.5 / 10000, min_rate: int = 5,
+def t0(buy_price: float, sale_price: float, num: int):
+    """
+    计算做T的收益
+    Args:
+        buy_price: 买入成本
+        sale_price: 卖出价格
+        num: 单笔数量
+    """
+    buy_money = Decimal(str(buy_price)) * num  # 买入的价格
+    sale_money = Decimal(str(sale_price)) * num
+    stock_returns = sale_money - buy_money
+    return stock_returns
+
+
+def t1(buy_price: float, sale_price: float, num: int, w_rate: float = 0.85 / 10000, min_rate: int = 5,
        stamp_tax=0.5 / 1000) -> float:
     """
     计算做T的收益
